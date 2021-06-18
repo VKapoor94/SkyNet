@@ -1,11 +1,12 @@
-import {put, call, takeLatest, takeEvery} from 'redux-saga/effects';
+import {put, call, takeEvery} from 'redux-saga/effects';
 import {types} from '../actions/types';
-import {getAllUsers} from '../apis/contactApi';
-import {getAllPhotos} from '../apis/photosApi';
-import {getDetailsofUser} from '../apis/DetailsApi';
-import {getPhotoofUser} from '../apis/singlePhotoApi';
-import {deleteUserFromList} from '../apis/deleteUserFromList';
-// Get Todos
+import {
+  getAllUsers,
+  getAllPhotos,
+  getDetailsofUser,
+  getPhotoofUser,
+  deleteUserFromList,
+} from '../apis/contactApi';
 function* getUsers() {
   try {
     const user = yield call(getAllUsers);

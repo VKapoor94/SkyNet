@@ -1,6 +1,4 @@
 import {combineReducers} from 'redux';
-
-// Reducers
 import contactReducer from './contactReducer';
 import photosReducer from './photosReducer';
 import detailsReducer from './detailsReducer';
@@ -13,5 +11,4 @@ export default combineReducers({
   detailsReducer,
   singlePhotoReducer,
   deleteReducer,
-  // Here you can registering another reducers.
 });

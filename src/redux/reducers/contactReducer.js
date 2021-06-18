@@ -6,28 +6,30 @@ const initialState = {
   error: {},
 };
 
-export default contactReducer= (state = initialState, {type, payload}) => {
+export default contactReducer = (state = initialState, {type, payload}) => {
   switch (type) {
-    // Set loading
     case types.SEND_REQUEST_GET_ALL_USER:
       return {
         ...state,
         loading: true,
       };
-    // Get todos
     case types.SEND_REQUEST_GET_ALL_USER_SUCCESS:
       return {
         ...state,
         user: payload,
         loading: false,
       };
-    // Set todo title from user that gonna input a title in form
     case types.SEND_REQUEST_GET_ALL_USER_FAILURE:
       return {
         ...state,
         user: {},
         error: payload,
         loading: false,
+      };
+    case types.DELETE_DATA_FROM_STORE:
+      return {
+        ...state,
+        user: state.user.filter(item => item.id !== payload),
       };
     default:
       return state;

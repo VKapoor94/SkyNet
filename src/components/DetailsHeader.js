@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableHighlight, StyleSheet, Image, Text} from 'react-native';
+import {View, StyleSheet, Image, Text} from 'react-native';
 
 const DetailsHeader = ({user, singlePhoto}) => {
   return (

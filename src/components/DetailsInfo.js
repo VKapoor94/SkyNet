@@ -7,15 +7,16 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import {fetchContactData} from '../redux/actions/contactActions';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Alert, Linking} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteUser} from '../redux/actions/DeleteUserActions';
+import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-
+import {
+  deleteUserFromStore,
+  deletePhotoFromStore,
+} from '../redux/actions/DeleteFromStoreActions';
 const DetailsInfo = ({user}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -24,12 +25,9 @@ const DetailsInfo = ({user}) => {
   const lon =
     user && user.address && user.address.geo ? user.address.geo.lng : '';
   const openUrl = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
     const supported = await Linking.canOpenURL('http://' + user.website);
 
     if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
       await Linking.openURL('http://' + user.website);
     } else {
       Alert.alert(`Don't know how to open this URL: ${user.website}`);
@@ -40,10 +38,9 @@ const DetailsInfo = ({user}) => {
     const payload = {
       id: user.id,
     };
-
-    await dispatch(deleteUser(payload));
+    await dispatch(deleteUserFromStore(payload));
+    await dispatch(deletePhotoFromStore(payload));
     ToastAndroid.show('Deleted Successfully', ToastAndroid.LONG);
-    dispatch(fetchContactData({}));
     navigation.navigate('Home');
   };
   return (
@@ -90,7 +87,7 @@ const DetailsInfo = ({user}) => {
         style={{borderRadius: 15}}
         title="Delete Contact"
         color="red"
-        onPress={deleteContact} //change "function" with your function for the button pressing
+        onPress={deleteContact}
       />
     </View>
   );
